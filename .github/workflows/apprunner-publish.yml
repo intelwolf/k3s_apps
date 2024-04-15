@@ -13,8 +13,8 @@ on:
     branches: [ "master" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
-  paths:
-    - 'apprunner/Dockerfile'
+    paths:
+      - 'apprunner/Dockerfile'
 
 #  pull_request:
 #    branches: [ "master" ]
