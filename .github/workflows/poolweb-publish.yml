@@ -36,7 +36,7 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-#          - linux/amd64
+          - linux/amd64
           - linux/arm64
 #          - linux/arm/v7
           
@@ -89,10 +89,11 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+#          secrets: |
+#            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
           
       - name: Scan image
+        if: matrix.platform == 'linux/amd64'
         id: scan
         uses: sysdiglabs/scan-action@v5
         with:
@@ -102,7 +103,7 @@ jobs:
           stop-on-processing-error: true
 
       - name: Upload SARIF file
-        if: success() || failure()  
+        if: (matrix.platform == 'linux/amd64') && (success() || failure())  
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ github.workspace }}/sarif.json         
