@@ -24,7 +24,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: intelwolf/apprunner
-  DOCKER_LOCATION: 'apprunner/'
+  DOCKER_LOCATION: 'k3s_apps/'
   SYSDIG_SECURE_ENDPOINT: "https://eu1.app.sysdig.com"
 
 jobs:
