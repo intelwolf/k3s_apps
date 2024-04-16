@@ -82,7 +82,7 @@ jobs:
           
       - name: Scan image
         id: scan
-        uses: sysdiglabs/scan-action@v5
+        uses: sysdiglabs/scan-action@v4
         with:
           image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sysdig-secure-url: ${{ env.SYSDIG_SECURE_ENDPOINT }}
