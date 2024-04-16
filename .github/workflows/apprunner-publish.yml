@@ -23,7 +23,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: intelwolf/apprunner_k3s
+  IMAGE_NAME: intelwolf/apprunner
   IMAGE_TAG: latest
   DOCKER_LOCATION: 'apprunner/'
   SYSDIG_SECURE_ENDPOINT: "https://eu1.app.sysdig.com"
