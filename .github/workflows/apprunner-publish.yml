@@ -89,6 +89,7 @@ jobs:
           image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sysdig-secure-url: ${{ env.SYSDIG_SECURE_ENDPOINT }}
           sysdig-secure-token: ${{ secrets.SECURE_API_TOKEN }}
+          stop-on-processing-error: true
 
       - name: Upload SARIF file
         if: success() || failure()  
