@@ -82,8 +82,9 @@ jobs:
           
       - name: Scan image
         id: scan
-        uses: sysdiglabs/scan-action@v4
+        uses: sysdiglabs/scan-action@v5
         with:
+          cli-scanner-version: 1.9.0
           image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sysdig-secure-url: ${{ env.SYSDIG_SECURE_ENDPOINT }}
           sysdig-secure-token: ${{ secrets.SECURE_API_TOKEN }}
