@@ -7,7 +7,7 @@ name: Apprunner
 
 on:
   schedule:
-    - cron: '33 10 16 * *'
+    - cron: '33 10 12 * *'
   workflow_dispatch:
   push:
     branches: [ "master" ]
@@ -32,6 +32,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
+          #- linux/arm/v7
+          
     permissions:
       actions: read
       contents: read
@@ -77,6 +85,9 @@ jobs:
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
           context: ${{ env.DOCKER_LOCATION }}
+          platforms: |
+            linux/amd64
+            linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -84,6 +95,7 @@ jobs:
           cache-to: type=gha,mode=max
           
       - name: Scan image
+        if: matrix.platform == 'linux/amd64'
         id: scan
         uses: sysdiglabs/scan-action@v5
         with:
@@ -93,7 +105,7 @@ jobs:
           stop-on-processing-error: true
 
       - name: Upload SARIF file
-        if: success() || failure()  
+        if: (matrix.platform == 'linux/amd64') && (success() || failure())
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ github.workspace }}/sarif.json         
+          sarif_file: ${{ github.workspace }}/sarif.json
