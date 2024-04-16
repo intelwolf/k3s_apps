@@ -24,7 +24,8 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  DOCKER_LOCATION: 'apprunner/' 
+  DOCKER_LOCATION: 'apprunner/'
+  SYSDIG_SECURE_ENDPOINT: "https://eu1.app.sysdig.com"
 
 jobs:
   build:
@@ -77,3 +78,17 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          
+      - name: Scan image
+        id: scan
+        uses: sysdiglabs/scan-action@v5
+        with:
+          image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          sysdig-secure-url: ${{ env.SYSDIG_SECURE_ENDPOINT }}
+          sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
+
+      - name: Upload SARIF file
+        if: (matrix.platform == 'linux/amd64') && (success() || failure()) 
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ github.workspace }}/sarif.json         
