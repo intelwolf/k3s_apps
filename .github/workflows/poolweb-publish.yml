@@ -38,7 +38,7 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
-#          - linux/arm/v7
+          - linux/arm/v7
           
     permissions:
       actions: read
@@ -90,8 +90,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-#          secrets: |
-#            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
           
       - name: Scan image
         if: matrix.platform == 'linux/amd64'
