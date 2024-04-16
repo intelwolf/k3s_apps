@@ -89,7 +89,7 @@ jobs:
           sysdig-secure-token: ${{ secrets.SECURE_API_TOKEN }}
 
       - name: Upload SARIF file
-        if: (matrix.platform == 'linux/amd64') && (success() || failure()) 
+        if: success() || failure()  
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ github.workspace }}/sarif.json         
