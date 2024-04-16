@@ -85,7 +85,7 @@ jobs:
         with:
           image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           sysdig-secure-url: ${{ env.SYSDIG_SECURE_ENDPOINT }}
-          sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
+          sysdig-secure-token: ${{ secrets.SECURE_API_TOKEN }}
 
       - name: Upload SARIF file
         if: (matrix.platform == 'linux/amd64') && (success() || failure()) 
