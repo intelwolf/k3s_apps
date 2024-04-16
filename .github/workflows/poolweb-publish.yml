@@ -41,6 +41,7 @@ jobs:
 #          - linux/arm/v7
           
     permissions:
+      actions: read
       contents: read
       packages: write
       # This is used to complete the identity challenge
