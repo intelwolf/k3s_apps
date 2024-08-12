@@ -6,7 +6,7 @@ RUN apt-get update && apt-get upgrade -y && \
 #    python3-rpi.gpio \
      apt-get clean
 
-RUN pip install pigpio influxdb-client paho-mqtt
+RUN pip install pigpio influxdb-client paho-mqtt requests
 # Set the working directory
 WORKDIR /app
 
