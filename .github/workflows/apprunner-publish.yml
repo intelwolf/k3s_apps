@@ -26,7 +26,7 @@ env:
   IMAGE_NAME: intelwolf/apprunner
   IMAGE_TAG: latest
   DOCKER_LOCATION: 'apprunner/'
-  SYSDIG_SECURE_ENDPOINT: "https://eu1.app.sysdig.com"
+  SYSDIG_SECURE_ENDPOINT: "https://app.eu2.sysdig.com"
 
 jobs:
   build:
